@@ -18,7 +18,6 @@ struct ColorSlider: View {
     
     var body: some View {
         HStack {
-            
             let roundedValue = "\(lround(valueColor))"
             
             Text(roundedValue).foregroundColor(colorText)
@@ -28,17 +27,8 @@ struct ColorSlider: View {
             TextField(roundedValue, text: $textField,
                       onEditingChanged: { enter in
                 if enter == false {
-                    guard let value = Double(textField), value >= 0, value <= 255 else
-                    {
-                        showAlert = true;
-                        textField = "";
-                        return
-                        
-                    }
-                    valueColor = value
-                    textField = ""
+                    checkValue()
                 }
-    
             })
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .frame(width: 45)
@@ -50,12 +40,24 @@ struct ColorSlider: View {
     }
 }
 
+extension ColorSlider {
+    private func checkValue() {
+        guard let value = Double(textField), (0...255).contains(value) else
+        {
+            showAlert = true;
+            textField = "";
+            return
+        }
+        valueColor = value
+        textField = ""
+    }
+}
+
 extension UIApplication {
     func endEditing() {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
-
 
 struct Sliders_Previews: PreviewProvider {
     static var previews: some View {

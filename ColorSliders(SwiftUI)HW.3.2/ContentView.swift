@@ -15,16 +15,17 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Color(.gray)
-                .edgesIgnoringSafeArea(.all)
+//            Color(.gray).edgesIgnoringSafeArea(.all) // for iOS < 14
+            Color(.gray).ignoresSafeArea() // for iOS >= 14
             
             VStack(spacing: 10) {
                 ColorView(red: red, green: green, blue: blue)
-                ColorSlider(valueColor: $red, colorText: Color(.red))
-                ColorSlider(valueColor: $green, colorText: Color(.green))
-                ColorSlider(valueColor: $blue, colorText: Color(.blue))
+                ColorSlider(valueColor: $red, colorText: .red)
+                ColorSlider(valueColor: $green, colorText: .green)
+                ColorSlider(valueColor: $blue, colorText: .blue)
                 Spacer()
             }
+            .padding()
         }
         .onTapGesture {
             UIApplication.shared.endEditing()

@@ -18,13 +18,13 @@ struct ColorView: View {
             green: green / 255,
             blue: blue / 255
         )
-            .frame(height: 150)
+          
             .cornerRadius(20)
             .overlay(
                 RoundedRectangle(cornerRadius: 20, style: .continuous)
                         .stroke(Color.black, lineWidth: 2)
             )
-            .padding()
+            .frame(height: 150)
     }
 }
 
